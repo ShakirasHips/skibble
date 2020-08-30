@@ -1,7 +1,10 @@
-.centered {
-  height: 100vh; /* Magic here */
-  display: flex;
+#centered {
+ /* Magic here */
+  margin-top: 50px;
+}
+
+#body {
   justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  display: flex;
+  margin-top: 50px;
 }

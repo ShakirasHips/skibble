@@ -33,7 +33,7 @@ class ClickMe extends React.Component<{}>{
     if (this.state.fade) {
       setTimeout(() => {
         this.reset()
-      },3000)
+      },1000)
     }
   }
 
@@ -62,7 +62,45 @@ class ClickMe extends React.Component<{}>{
       )
   }
 }
+
+
+export default class Counter extends React.Component {
+  state = {
+    count: 0
+  };
+
+  increment = () => {
+    this.setState({
+      count: (this.state.count + 1)
+    });
+  };
+
+  decrement = () => {
+    this.setState({
+      count: (this.state.count - 1)
+    });
+  };
+
+  reset = () => {
+    this.setState({
+      count: (this.state.count = 0)
+    });
+  };
+
+  render () {
+    return (
+      <div>
+        <h1>{this.state.count}</h1>
+        <button onClick={this.increment}>Increment</button>
+        <button onClick={this.decrement}>Decrement</button>
+        <button onClick={this.reset}>Reset</button>
+      </div>
+    );
+  }
+}
+
 ReactDOM.render(
   <ClickMe />,
   document.getElementById('app')
 );
+ReactDOM.render(<Counter />, document.getElementById('main'));
