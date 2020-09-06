@@ -1,87 +1,88 @@
 {
   "name": "skibble",
+  "productName": "skibble",
   "version": "1.0.0",
-  "description": "",
-  "main": "./dist/main.bundle.js",
+  "description": "My Electron application description",
+  "main": ".webpack/main",
   "scripts": {
-    "start": "electron ./dist/main.bundle.js",
-    "dev": "rimraf dist && cross-env NODE_ENV=development webpack --watch --progress --colors",
-    "prod": "rimraf dist && cross-env NODE_ENV=production webpack --progress --colors",
-    "test": "mocha -r ts-node/register -r tsconfig-paths/register \"test/**/*.ts\"",
-    "build:win": "electron-builder build --win --x64",
-    "build:mac": "electron-builder build --mac --x64"
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "eslint --ext .ts ."
   },
-  "build": {
-    "productName": "Skibble",
-    "directories": {
-      "app": "./dist/",
-      "output": "./out/"
-    },
-    "mac": {
-      "target": "pkg"
-    },
-    "win": {
-      "target": "nsis",
-      "asar": false
-    },
-    "buildVersion": "1.0.0"
+  "keywords": [],
+  "author": {
+    "name": "Jayden O'Brien",
+    "email": "jaydenobrien96@gmail.com"
   },
-  "author": "",
-  "license": "",
-  "dependencies": {
-    "@types/react": "^16.9.48",
-    "@types/react-dom": "^16.9.8",
-    "bootstrap": "^4.5.2",
-    "jquery": "^3.5.1",
-    "popper.js": "^1.16.1",
-    "react": "^16.13.1",
-    "react-bootstrap": "^1.3.0",
-    "react-dom": "^16.13.1",
-    "react-dom-confetti": "^0.2.0"
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "skibble"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "plugins": [
+        [
+          "@electron-forge/plugin-webpack",
+          {
+            "mainConfig": "./webpack.main.config.js",
+            "renderer": {
+              "config": "./webpack.renderer.config.js",
+              "entryPoints": [
+                {
+                  "html": "./src/index.html",
+                  "js": "./src/renderer.ts",
+                  "name": "main_window"
+                }
+              ]
+            }
+          }
+        ]
+      ]
+    }
   },
   "devDependencies": {
-    "@types/mocha": "^8.0.3",
-    "@types/react-router": "^5.1.8",
-    "@types/react-router-dom": "^5.1.5",
-    "acorn": "^8.0.1",
-    "ajv": "^6.12.4",
-    "copy-pkg-json-webpack-plugin": "0.0.39",
-    "cross-env": "^7.0.2",
+    "@electron-forge/cli": "^6.0.0-beta.53",
+    "@electron-forge/maker-deb": "^6.0.0-beta.53",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.53",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.53",
+    "@electron-forge/maker-zip": "^6.0.0-beta.53",
+    "@electron-forge/plugin-webpack": "^6.0.0-beta.53",
+    "@marshallofsound/webpack-asset-relocator-loader": "^0.5.0",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
     "css-loader": "^4.2.2",
-    "electron": "^10.1.0",
-    "electron-builder": "^22.8.0",
-    "eslint": "^7.7.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-import-resolver-webpack": "^0.12.2",
+    "electron": "10.1.1",
+    "eslint": "^7.8.1",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react": "^7.20.6",
-    "file-loader": "^6.0.0",
-    "html-webpack-plugin": "^4.3.0",
-    "lodash": "^4.17.20",
-    "mocha": "^8.1.3",
-    "rimraf": "^3.0.2",
-    "source-map-loader": "^1.0.2",
-    "spectron": "^11.1.0",
+    "fork-ts-checker-webpack-plugin": "^5.1.0",
+    "node-loader": "^1.0.1",
     "style-loader": "^1.2.1",
     "ts-loader": "^8.0.3",
-    "ts-node": "^9.0.0",
-    "tsconfig-paths": "^3.9.0",
-    "tslint": "^6.1.3",
-    "tslint-microsoft-contrib": "^6.2.0",
-    "typescript": "^4.0.2",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "typescript": "^4.0.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ShakirasHips/skibble"
-  },
-  "keywords": [
-    "boilerplate",
-    "Electron",
-    "React",
-    "Typescript",
-    "Webpack"
-  ]
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  }
 }
