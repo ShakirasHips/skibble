@@ -1,4 +1,5 @@
 import { app, BrowserWindow } from 'electron';
+import * as system from 'systeminformation'
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -37,5 +38,19 @@ app.on('activate', () => {
   }
 });
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+async function cpuData() {
+  try {
+    const data = await system.cpu();
+    console.log('CPU Information:');
+    console.log('- manufucturer: ' + data.manufacturer);
+    console.log('- brand: ' + data.brand);
+    console.log('- speed: ' + data.speed);
+    console.log('- cores: ' + data.cores);
+    console.log('- physical cores: ' + data.physicalCores);
+    console.log('...');
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+cpuData()
