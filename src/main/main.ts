@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import * as system from 'systeminformation'
 declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
 
@@ -7,50 +7,38 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
   app.quit();
 }
 
-const createWindow = (): void => {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
-    autoHideMenuBar: true,
-  });
+class Main {
+  private mWindow: BrowserWindow
 
-  // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
-  // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
-};
-
-app.on('ready', createWindow);
-
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
+  public init(): void {
+    app.on('ready', this.createWindow)
+    app.on('window-all-closed', this.onWindowAllClosed)
+    app.on('activate', this.onActivate)
   }
-});
 
-app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
+  private createWindow(): void {
+    const mainWindow = new BrowserWindow({
+      height: 600,
+      width: 800,
+      autoHideMenuBar: true,
+    });
+  
+    // and load the index.html of the app.
+    mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+
+    // Open the DevTools.
+    //mainWindow.webContents.openDevTools();
   }
-});
 
-async function cpuData() {
-  try {
-    const data = await system.cpu();
-    console.log('CPU Information:');
-    console.log('- manufucturer: ' + data.manufacturer);
-    console.log('- brand: ' + data.brand);
-    console.log('- speed: ' + data.speed);
-    console.log('- cores: ' + data.cores);
-    console.log('- physical cores: ' + data.physicalCores);
-    console.log('...');
-  } catch (e) {
-    console.log(e)
+  private onWindowAllClosed(): void {
+    if (process.platform !== 'darwin') 
+      app.quit();
+  }
+
+  private onActivate(): void {
+    if (!this.mWindow)
+      this.createWindow()
   }
 }
 
-cpuData()
+new Main().init()
