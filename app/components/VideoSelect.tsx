@@ -1,8 +1,9 @@
 /* eslint-disable react/destructuring-assignment */
-import { Button, Menu, MenuItem } from '@material-ui/core';
+import { Button, ListItemIcon, Menu, MenuItem } from '@material-ui/core';
 import * as Icons from '@material-ui/icons';
 import React from 'react';
 import { desktopCapturer } from 'electron';
+import { SvgIcon } from 'material-ui';
 
 export async function getVideoSources(): Promise<
 Array<Electron.DesktopCapturerSource>
@@ -58,7 +59,7 @@ export class VideoSelect extends React.Component<
 								open={Boolean(this.state.anchorEl)}
 								onClose={this.handleClose}
 							>
-								{this.state.sources.map(element => <MenuItem onClick={this.handleClose}>{element.id}</MenuItem>)}
+								{this.state.sources.map(element => <MenuItem onClick={this.handleClose}>{element.name}</MenuItem>)}
 							</Menu>
 	}
     return (

@@ -7,6 +7,8 @@ import { VideoSelect } from './VideoSelect';
 
 export default function Home(): JSX.Element {
   return (
+	<body>
+	<video></video>
     <div className={styles.container} data-tid="container">
       <Button variant="contained" color="primary" startIcon={<Icons.PlayArrowRounded />}>
         Start Recording
@@ -16,5 +18,6 @@ export default function Home(): JSX.Element {
       </Button>
       <VideoSelect />
     </div>
+	</body>
   );
 }
