@@ -3,12 +3,12 @@ import {Button} from '@material-ui/core';
 import * as Icons from '@material-ui/icons';
 import styles from './Home.css';
 import { VideoSelect } from './VideoSelect';
-
+import {VideoView} from './VideoView'
 
 export default function Home(): JSX.Element {
   return (
 	<body>
-	<video></video>
+	<VideoView></VideoView>
     <div className={styles.container} data-tid="container">
       <Button variant="contained" color="primary" startIcon={<Icons.PlayArrowRounded />}>
         Start Recording

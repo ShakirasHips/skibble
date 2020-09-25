@@ -1,0 +1,12 @@
+.VideoView {
+	display: flex;
+	position: relative;
+	justify-content: center;
+	background-color: rgb(42, 59, 78);
+	min-width: 60%;
+	min-height: 60%;
+	top: 5%;
+	margin-left: 5%;
+	margin-right: 5%;
+	border-radius: 25px;
+}
