@@ -18,6 +18,9 @@ export class Home extends React.Component {
 			<Button variant="contained" color="secondary" startIcon={<Icons.StopRounded />}>
 			  Stop Recording
 			</Button>
+			<Button variant="contained" color="secondary" startIcon={<Icons.StopRounded />}>
+			  Test Recording
+			</Button>
 			<Temp />
 		  </div>
 		  </body>
